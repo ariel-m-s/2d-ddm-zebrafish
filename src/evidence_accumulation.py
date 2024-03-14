@@ -58,7 +58,7 @@ def dx(
 
 def x_cov(sigma: np.array, gamma: float, delta_t: float = np.inf) -> np.array:
     """
-    [Equation 8]
+    [Equations 8 and 10]
 
     Calculate the covariance of the decision variable.
 
@@ -87,7 +87,7 @@ def x_cov(sigma: np.array, gamma: float, delta_t: float = np.inf) -> np.array:
 
 def x_mean(drift: np.array, gamma: float, delta_t: float = np.inf) -> np.array:
     """
-    [Equation 9]
+    [Equations 9 and 11]
 
     Calculate the expected value of the decision variable.
 
