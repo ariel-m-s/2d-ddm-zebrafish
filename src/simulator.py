@@ -72,7 +72,7 @@ class Simulator:
         c = c.reshape(-1, 1)
 
         self.x += dx(
-            x=self.x, c=c, S=self.S, xi=self.xi, gamma=self.gamma, time_step=self.time_step, epsilon=self.epsilon
+            x=self.x, c=c, gamma=self.gamma, S=self.S, xi=self.xi, epsilon=self.epsilon, time_step=self.time_step
         )
 
         self.t += self.time_step

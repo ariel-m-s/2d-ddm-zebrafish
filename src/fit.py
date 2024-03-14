@@ -4,13 +4,7 @@ import numpy as np
 from scipy.optimize import brute
 
 import constants
-from decision_making import (
-    DecisionCategory,
-    boutfield,
-    decision_category__alpha,
-    get_alpha,
-    is_subthreshold,
-)
+from decision_making import boutfield, get_alpha
 from evidence_accumulation import drift, get_c, x_cov, x_mean
 
 
@@ -23,7 +17,6 @@ def compute_weights(x: np.array, gamma: float, M: np.array, z: np.array, S: np.a
     alpha__static = get_alpha(x__static)
 
     baseline_weight = boutfield(x=x__static, alpha=alpha__static, M=M, z=z).mean(axis=1)
-    # print(baseline_weight)
     baseline_weight = np.append(baseline_weight, baseline_weight.sum())
 
     weights = []
@@ -223,7 +216,7 @@ if __name__ == "__main__":
     np.random.seed(0)
 
     # SET CONFIGURATION.
-    N_SAMPLES = int(1e5)
+    N_SAMPLES = int(5e4)
     N_SUBDIVISIONS = 21
     N_PARAMS = len(search_space)
     N_COMBINATIONS = N_SUBDIVISIONS**N_PARAMS
