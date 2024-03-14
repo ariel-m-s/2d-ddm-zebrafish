@@ -21,7 +21,7 @@ BOUT_DURATION = 0.15
 
 # The refractory period (in seconds). This is the time the fish needs to wait before
 # making another decision.
-REFRACTORY_PERIOD = 0.25
+REFRACTORY_PERIOD = 0.2
 
 # The maximum rate at which the fish can make decisions (in Hz). This is the inverse
 # of the refractory period.
@@ -93,7 +93,12 @@ XI1 = XI2 = 0
 PHI = np.deg2rad(60)
 
 # Covariance matrix of the diffusion. [Equation 6]
-SIGMA = np.array([[1, 0], [0, 1]])
+SIGMA = np.zeros((2, 2))
+np.fill_diagonal(SIGMA, 1)
+
+# Set to very small value to see how the model behaves without diffusion.
+# This is useful for debugging purposes.
+# SIGMA *= 0.001
 
 ##############
 # PARAMETERS #

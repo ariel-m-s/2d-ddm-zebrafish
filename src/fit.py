@@ -60,6 +60,9 @@ def compute_weights(x: np.array, gamma: float, M: np.array, z: np.array, S: np.a
         d__stimulus = drift(c=c__stimulus, S=S, xi=xi)
         x_mean__stimulus = x_mean(drift=d__stimulus, gamma=gamma)
 
+        # print(f"theta: {theta__degrees}")
+        # print(f"c: {c__stimulus}")
+
         x__stimulus = x + x_mean__stimulus
         alpha__stimulus = get_alpha(x__stimulus)
 
@@ -249,7 +252,7 @@ if __name__ == "__main__":
     # that the same random samples are used for each optimization run.
     np.random.seed(0)
 
-    N_SAMPLES = int(1e4)
+    N_SAMPLES = int(1e5)
     N_SUBDIVISIONS = 21
     N_PARAMS = len(search_space)
     N_COMBINATIONS = N_SUBDIVISIONS**N_PARAMS
@@ -271,6 +274,13 @@ if __name__ == "__main__":
     x_samples_mean = np.zeros((2,))
     x_samples_cov = x_cov(sigma=constants.SIGMA, gamma=constants.GAMMA)
     x_samples = np.random.multivariate_normal(x_samples_mean, x_samples_cov, N_SAMPLES).T
+
+    # m = 1
+    # s = 1
+    # result = compute_weights(x_samples, constants.GAMMA, np.array([[m, 0], [0, m]]), np.array([[0], [0]]), np.array([[s, 0], [0, s]]), np.array([[0], [0]]).reshape(-1, 1))
+    # np.set_printoptions(precision=2, suppress=True)
+    # print(result)
+    # exit()
 
     print("\nFitting...\n")
     t0 = t()

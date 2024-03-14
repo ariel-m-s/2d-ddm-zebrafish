@@ -1,5 +1,5 @@
 """
-This script animates the two-dimensional integrator model using matplotlib.
+This script animates the two-dimensional simulator model using matplotlib.
 """
 
 import matplotlib.pyplot as plt
@@ -34,30 +34,30 @@ initial_stim = np.array([0, 0])
 refractory_period_n_steps = int(REFRACTORY_PERIOD / TIME_STEP)
 bout_duration_n_steps = int(BOUT_DURATION / TIME_STEP)
 
-integrator = Simulator()
+simulator = Simulator()
 
 figs, axs = plt.subplots(1, 2, figsize=(12, 6))
 
 
-integrator_ax = axs[0]
+simulator_ax = axs[0]
 distr_ax = axs[1]
 
-integrator_ax.set_aspect("equal", adjustable="box")
+simulator_ax.set_aspect("equal", adjustable="box")
 
 # rename x,y axes to x_1 and x_2 (with subscripts)
-integrator_ax.set_xlabel("$x_1$")
-integrator_ax.set_ylabel("$x_2$")
+simulator_ax.set_xlabel("$x_1$")
+simulator_ax.set_ylabel("$x_2$")
 
 # set ticks only at 0, 0.5 and 1
-integrator_ax.set_xticks([-1, 0, 1])
-integrator_ax.set_yticks([-1, 0, 1])
+simulator_ax.set_xticks([-1, 0, 1])
+simulator_ax.set_yticks([-1, 0, 1])
 
 distr_ax.set_xlim(-180, 180)
 distr_ax.set_ylim(0, 0.2)
 
 figure_bound = 2 * max(R1, R2)
-integrator_ax.set_xlim(-figure_bound, figure_bound)
-integrator_ax.set_ylim(-figure_bound, figure_bound)
+simulator_ax.set_xlim(-figure_bound, figure_bound)
+simulator_ax.set_ylim(-figure_bound, figure_bound)
 
 # DECISION VARIABLE TARGET
 drift = np.array([S1 * initial_stim[0], S2 * initial_stim[1]])
@@ -96,17 +96,17 @@ target_ellipse_3std = Ellipse(
     lw=1,
 )
 
-# integrator_ax.add_artist(target_ellipse_1std)
-# integrator_ax.add_artist(target_ellipse_2std)
-# integrator_ax.add_artist(target_ellipse_3std)
+# simulator_ax.add_artist(target_ellipse_1std)
+# simulator_ax.add_artist(target_ellipse_2std)
+# simulator_ax.add_artist(target_ellipse_3std)
 
 circle_stim_25coh = plt.Circle((0, 0), 0.25, color="black", fill=False, ls="dashed", alpha=0.1)
 circle_stim_50coh = plt.Circle((0, 0), 0.5, color="black", fill=False, ls="dashed", alpha=0.2)
 circle_stim_100coh = plt.Circle((0, 0), 1, color="black", fill=False, ls="dashed", alpha=0.4)
 
-# integrator_ax.add_artist(circle_stim_25coh)
-# integrator_ax.add_artist(circle_stim_50coh)
-# integrator_ax.add_artist(circle_stim_100coh)
+# simulator_ax.add_artist(circle_stim_25coh)
+# simulator_ax.add_artist(circle_stim_50coh)
+# simulator_ax.add_artist(circle_stim_100coh)
 
 ellipse_decision_boundary = Ellipse(
     xy=(-z[0] * R1, -z[1] * R2),
@@ -119,29 +119,29 @@ ellipse_decision_boundary = Ellipse(
     ls="solid",
 )
 
-integrator_ax.add_artist(ellipse_decision_boundary)
+simulator_ax.add_artist(ellipse_decision_boundary)
 
 # paths start with a bunch of zeros
 max_path_length = 100
 path_x = [0] * max_path_length
 path_y = [0] * max_path_length
 
-path_line = integrator_ax.plot([], [], lw=1, alpha=0.3, color="darkgoldenrod")[0]
-path_tip = integrator_ax.scatter([], [], s=20, color="darkgoldenrod")
+path_line = simulator_ax.plot([], [], lw=1, alpha=0.3, color="darkgoldenrod")[0]
+path_tip = simulator_ax.scatter([], [], s=20, color="darkgoldenrod")
 
-stim_pos = integrator_ax.scatter([0], [0], s=5, color="purple")
-stim_line = integrator_ax.plot([0, 0], [0, 0], color="purple", ls="dashed", lw=1, alpha=0.5)[0]
-stim_text = integrator_ax.text(0.05, 0.95, "", transform=integrator_ax.transAxes, ha="left", va="top")
+stim_pos = simulator_ax.scatter([0], [0], s=5, color="purple")
+stim_line = simulator_ax.plot([0, 0], [0, 0], color="purple", ls="dashed", lw=1, alpha=0.5)[0]
+stim_text = simulator_ax.text(0.05, 0.95, "", transform=simulator_ax.transAxes, ha="left", va="top")
 
-timer = integrator_ax.text(0.95, 0.95, "".format(0, 0), transform=integrator_ax.transAxes, ha="right", va="top")
+timer = simulator_ax.text(0.95, 0.95, "".format(0, 0), transform=simulator_ax.transAxes, ha="right", va="top")
 
 # target_turn_angle_distr = gmm.distr(x, *p0)
-# integrator_turn_angle_distr = integrator.turn_angle_distr(x, *p0)
+# simulator_turn_angle_distr = simulator.turn_angle_distr(x, *p0)
 
 # target_distr = distr_ax.plot(x, target_turn_angle_distr, lw=2, color="purple", ls="solid", alpha=0.8)[0]
-# integrator_distr = distr_ax.plot(x, integrator_turn_angle_distr, lw=1, color="darkgoldenrod", ls="dotted", alpha=0.4)[0]
+# simulator_distr = distr_ax.plot(x, simulator_turn_angle_distr, lw=1, color="darkgoldenrod", ls="dotted", alpha=0.4)[0]
 
-# bout_rate = np.trapz(integrator_turn_angle_distr, x)
+# bout_rate = np.trapz(simulator_turn_angle_distr, x)
 # bout_rate_text = distr_ax.text(
 #     0.05, 0.95, "Bout rate: {:.2f} Hz".format(bout_rate), transform=distr_ax.transAxes, ha="left", va="top"
 # )
@@ -190,11 +190,11 @@ def update(n):
     stim_text.set_text("c = {:.2f}\nθ = {:.2f}°".format(stim_radius, stim_angle))
 
     c = np.array([stim_y, stim_x])
-    decision = integrator.step(c=c)
-    integrator_x, integrator_y = integrator.x__flat
+    decision = simulator.step(c=c)
+    simulator_y, simulator_x = simulator.x__flat
 
-    path_x.append(integrator_x)
-    path_y.append(integrator_y)
+    path_x.append(simulator_x)
+    path_y.append(simulator_y)
 
     if len(path_x) > max_path_length:
         path_x.pop(0)
@@ -202,7 +202,7 @@ def update(n):
 
     max_line_elements = 100
     path_line.set_data(path_x[-max_line_elements:], path_y[-max_line_elements:])
-    path_tip.set_offsets([integrator_x, integrator_y])
+    path_tip.set_offsets([simulator_x, simulator_y])
 
     time = (n + 1) * TIME_STEP
     timer.set_text("t = {:.2f}".format(time))
@@ -240,7 +240,7 @@ def on_move(event):
     if event.button != 1:
         return
 
-    if event.inaxes == integrator_ax:
+    if event.inaxes == simulator_ax:
         stim_x = event.xdata
         stim_y = event.ydata
 
@@ -303,7 +303,7 @@ grid_1 = np.linspace(-figure_bound, figure_bound, 1000)
 max_angle = 90
 cmap = "bwr"
 
-# integrator_ax.imshow(
+# simulator_ax.imshow(
 #     mus,
 #     cmap=cmap,
 #     vmin=-max_angle,
@@ -372,7 +372,7 @@ if MODE == "save_image":
     # std = np.std(samples)
     # print(std)
 
-    plt.savefig("integrator.svg", format="svg")
+    plt.savefig("simulator.svg", format="svg")
 
 elif MODE == "animate":
     anim = animation.FuncAnimation(

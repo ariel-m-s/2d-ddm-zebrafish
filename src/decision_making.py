@@ -36,7 +36,7 @@ def get_alpha(x: np.array) -> np.array:
     Returns:
         The angle of the decision variable (in radians).
     """
-    return np.arctan2(x[1], x[0])
+    return np.arctan2(x[0], x[1])
 
 
 def is_subthreshold(x: np.array, M: np.array, z: np.array) -> np.array:
@@ -82,6 +82,8 @@ def decision_category__alpha(alpha: np.array, phi: float) -> np.array:
         categories are LEFT, FORWARD, and RIGHT. The shape of the array
         is the same as the shape of the decision variable.
     """
+    # print(np.rad2deg(alpha.mean()))
+
     # The decision categories are separated by the angle phi.
     left = alpha < -phi
     right = alpha > phi
