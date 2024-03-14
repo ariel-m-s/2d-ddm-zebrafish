@@ -10,8 +10,8 @@ def drift(c: np.array, S: np.array, xi: np.array) -> np.array:
 
     Args:
         c: The coherence (stimulus).
-        S: The sensory gain.
-        xi: The stimulus bias.
+        S: The sensory gain (in 1/s)
+        xi: The stimulus bias (in 1/s).
 
     Returns:
         The drift.
@@ -31,8 +31,8 @@ def dx(
         x: The decision variable.
         gamma: The leak.
         c: The coherence (stimulus).
-        S: The sensory gain.
-        xi: The stimulus bias.
+        S: The sensory gain (in 1/s).
+        xi: The stimulus bias (in 1/s).
         epsilon: The diffusion.
         time_step: The time step.
 

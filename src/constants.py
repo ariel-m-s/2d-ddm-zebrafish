@@ -6,7 +6,7 @@ from scipy.stats import norm
 ##################
 
 # The duration of a bout (in seconds). This is the time the fish spends swimming in
-# a particular direction (used only for animation purposes).
+# a particular direction.
 BOUT_DURATION = 0.15
 
 # The refractory period (in seconds). This is the time the fish needs to wait before
