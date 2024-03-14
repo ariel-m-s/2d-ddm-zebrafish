@@ -49,7 +49,6 @@ RIGHT_ANGLE_DISTRIBUTION = norm(loc=31, scale=25)
 # simulation. The smaller the time step, the more accurate the simulation, but the
 # longer it takes to run. Too large a time step can lead to artifacts in the
 # simulation. Good values are between 0.005 and 0.020 seconds.
-
 TIME_STEP = 0.010
 
 ######################
