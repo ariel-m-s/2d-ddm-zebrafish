@@ -1,3 +1,7 @@
+"""
+Functions for the decision-making part of the model.
+"""
+
 from enum import Enum
 
 import numpy as np

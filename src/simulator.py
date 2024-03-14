@@ -1,3 +1,9 @@
+"""
+This module contains the Simulator class, which simulates the two-dimensional
+drift-diffusion model. The simulator can be used to simulate an agent's evidence
+accumulation process and decision-making behavior.
+"""
+
 import numpy as np
 
 import constants

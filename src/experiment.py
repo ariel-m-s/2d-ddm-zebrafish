@@ -1,3 +1,9 @@
+"""
+Simulate the behavior of fish in an experiment. The fish are simulated using a
+two-dimensional drift-diffusion model. The fish are presented with visual stimuli
+at different angles and coherences (strengths).
+"""
+
 import datetime as dt
 import multiprocessing as mp
 import os

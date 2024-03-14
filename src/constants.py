@@ -1,3 +1,13 @@
+"""
+This module contains the constants and parameters used in the simulation. The constants
+define the behavior of the fish, such as the duration of a bout, the refractory period,
+and the bout distributions. The parameters define the parameters of the model, such as
+the leak, motor gains, sensory gains, and stimulus bias.
+
+Example:
+    To access the bout duration constant, use `constants.BOUT_DURATION`.
+"""
+
 import numpy as np
 from scipy.stats import norm
 

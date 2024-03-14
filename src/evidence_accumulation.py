@@ -1,3 +1,7 @@
+"""
+Functions to simulate evidence accumulation part of the model.
+"""
+
 import numpy as np
 
 

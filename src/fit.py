@@ -1,3 +1,9 @@
+"""
+This script fits the model to the data using brute force optimization.
+The script uses the `brute` function from `scipy.optimize` to search the
+parameter space for the best parameters that minimize the loss function.
+"""
+
 from time import time as t
 
 import numpy as np
@@ -9,6 +15,28 @@ from evidence_accumulation import drift, get_c, x_cov, x_mean
 
 
 def compute_weights(x: np.array, gamma: float, M: np.array, z: np.array, S: np.array, xi: np.array) -> np.array:
+    """
+    Compute the weights of the three-component Gaussian mixture under
+    different stimulus conditions.
+
+    Args:
+        x: The decision variable.
+        gamma: The leak.
+        M: The motor gain.
+        z: The response bias.
+        S: The sensory gain.
+        xi: The stimulus bias.
+
+    Returns:
+        The weights of the three-component Gaussian mixture under different
+        stimulus conditions. The shape of the array is (n_stimuli, 4), where
+        n_stimuli is the number of stimuli and 4 is the weights of the three
+        components and the sum of the weights.
+    """
+    # Compute the weights of the three-component Gaussian mixture under
+    # the static stimulus (baseline condition). The static stimulus has
+    # zero coherence.
+
     c__static = get_c(coherence=0)
     d__static = drift(c=c__static, S=S, xi=xi)
     x_mean__static = x_mean(drift=d__static, gamma=gamma)
@@ -21,6 +49,11 @@ def compute_weights(x: np.array, gamma: float, M: np.array, z: np.array, S: np.a
 
     weights = []
     weights.append(baseline_weight)
+
+    # Compute the weights of the three-component Gaussian mixture under
+    # different stimulus conditions. The stimuli are presented at different
+    # angles and coherences. These angles are in degrees and the coherences
+    # range from 0 to 1, not 0% to 100%.
 
     for theta__degrees in [0, 45, 90, 135, 180]:
         c__stimulus = get_c(theta__degrees=theta__degrees, coherence=1)
@@ -212,11 +245,11 @@ if __name__ == "__main__":
     # INITIALIZATION #
     ##################
 
-    # SET SEED FOR CONSISTENT RESULTS.
+    # Set the seed for reproducibility. The seed is set here to ensure
+    # that the same random samples are used for each optimization run.
     np.random.seed(0)
 
-    # SET CONFIGURATION.
-    N_SAMPLES = int(5e4)
+    N_SAMPLES = int(1e4)
     N_SUBDIVISIONS = 21
     N_PARAMS = len(search_space)
     N_COMBINATIONS = N_SUBDIVISIONS**N_PARAMS
@@ -224,7 +257,6 @@ if __name__ == "__main__":
     N_DECIMALS = 3
     N_TOP = 20
 
-    # PRINT CONFIGURATION.
     print(f"\nSAMPLES: {N_SAMPLES:.2e}")
     print(f"SUBDIVISIONS: {N_SUBDIVISIONS}")
     print(f"PARAMS: {N_PARAMS}")
@@ -233,8 +265,9 @@ if __name__ == "__main__":
     print(f"DECIMALS: {N_DECIMALS}")
     print(f"TOP: {N_TOP}\n")
 
-    # SAMPLE DECISION VARIABLE (X).
-    # SEED NEEDED FOR CONSISTENT RESULTS.
+    # Sample the decision variable from a bivariate Gaussian distribution.
+    # The random seed is needed to ensure that the same samples are used
+    # for each optimization run.
     x_samples_mean = np.zeros((2,))
     x_samples_cov = x_cov(sigma=constants.SIGMA, gamma=constants.GAMMA)
     x_samples = np.random.multivariate_normal(x_samples_mean, x_samples_cov, N_SAMPLES).T
@@ -242,6 +275,10 @@ if __name__ == "__main__":
     print("\nFitting...\n")
     t0 = t()
 
+    # Run the brute force optimization. The `brute` function searches the
+    # parameter space for the best parameters that minimize the loss function.
+    # The `args` parameter is used to pass the decision variable samples to
+    # the loss function.
     result = brute(
         objective,
         search_space,
@@ -256,6 +293,9 @@ if __name__ == "__main__":
     # PRINT AND SAVE RESULTS #
     ##########################
 
+    # Print the top N_TOP parameter combinations and their corresponding loss.
+    # The parameter combinations are sorted by the loss in ascending order.
+
     indices_flat = np.argpartition(result[3].flatten(), N_TOP)[:N_TOP]
     indices_flat = indices_flat[np.argsort(result[3].flatten()[indices_flat])]
     indices = np.unravel_index(indices_flat, result[3].shape)
@@ -267,11 +307,13 @@ if __name__ == "__main__":
         params = [result[2][j][index] for j in range(N_PARAMS)]
         loss = result[3][index]
 
-        # print params and loss nicely and round them to N_DECIMALS decimal places.
         print(", ".join([f"{param:.{N_DECIMALS}f}" for param in params]), f"loss: {loss:.{N_DECIMALS}f}")
 
         top_params.append([*params, loss])
 
+    # Save the top N_TOP parameter combinations to a CSV file. The CSV file
+    # contains the parameter combinations and their corresponding loss. The
+    # file name is `top_params_{name}.csv`, where `name` is the name of the case.
     with open(f"top_params_{name}.csv", "w") as f:
         for params in top_params:
             f.write(", ".join([f"{param:.{N_DECIMALS}f}" for param in params]) + "\n")
