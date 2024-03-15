@@ -18,12 +18,10 @@ from constants import (
     S2,
     SIGMA,
     TIME_STEP,
-    Z1,
-    Z2,
+    Z,
 )
 from simulator import Simulator
 
-z = np.array([Z1, Z2])
 M_det = np.sqrt(M1 * M2)
 M_det_inv = 1 / M_det
 R1 = 1 / M1
@@ -109,7 +107,7 @@ circle_stim_100coh = plt.Circle((0, 0), 1, color="black", fill=False, ls="dashed
 # simulator_ax.add_artist(circle_stim_100coh)
 
 ellipse_decision_boundary = Ellipse(
-    xy=(-z[0] * R1, -z[1] * R2),
+    xy=(-Z[0] * R1, -Z[1] * R2),
     width=2 * R1,
     height=2 * R2,
     angle=0,
@@ -134,17 +132,6 @@ stim_line = simulator_ax.plot([0, 0], [0, 0], color="purple", ls="dashed", lw=1,
 stim_text = simulator_ax.text(0.05, 0.95, "", transform=simulator_ax.transAxes, ha="left", va="top")
 
 timer = simulator_ax.text(0.95, 0.95, "".format(0, 0), transform=simulator_ax.transAxes, ha="right", va="top")
-
-# target_turn_angle_distr = gmm.distr(x, *p0)
-# simulator_turn_angle_distr = simulator.turn_angle_distr(x, *p0)
-
-# target_distr = distr_ax.plot(x, target_turn_angle_distr, lw=2, color="purple", ls="solid", alpha=0.8)[0]
-# simulator_distr = distr_ax.plot(x, simulator_turn_angle_distr, lw=1, color="darkgoldenrod", ls="dotted", alpha=0.4)[0]
-
-# bout_rate = np.trapz(simulator_turn_angle_distr, x)
-# bout_rate_text = distr_ax.text(
-#     0.05, 0.95, "Bout rate: {:.2f} Hz".format(bout_rate), transform=distr_ax.transAxes, ha="left", va="top"
-# )
 
 bouting_indicator_color = "#FFFF00"
 
@@ -189,9 +176,9 @@ def update(n):
     stim_line.set_data([0, stim_x], [0, stim_y])
     stim_text.set_text("c = {:.2f}\nθ = {:.2f}°".format(stim_radius, stim_angle))
 
-    c = np.array([stim_y, stim_x])
+    c = np.array([stim_x, stim_y])
     decision = simulator.step(c=c)
-    simulator_y, simulator_x = simulator.x__flat
+    simulator_x, simulator_y = simulator.x__flat
 
     path_x.append(simulator_x)
     path_y.append(simulator_y)

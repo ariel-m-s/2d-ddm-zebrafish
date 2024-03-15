@@ -93,12 +93,7 @@ XI1 = XI2 = 0
 PHI = np.deg2rad(60)
 
 # Covariance matrix of the diffusion. [Equation 6]
-SIGMA = np.zeros((2, 2))
-np.fill_diagonal(SIGMA, 1)
-
-# Set to very small value to see how the model behaves without diffusion.
-# This is useful for debugging purposes.
-# SIGMA *= 0.001
+SIGMA = np.identity(2)
 
 ##############
 # PARAMETERS #
@@ -139,3 +134,13 @@ M = np.array([[M1, M21], [M12, M2]])
 S = np.array([[S1, S21], [S12, S2]])
 Z = np.array([Z1, Z2]).reshape(-1, 1)
 XI = np.array([XI1, XI2]).reshape(-1, 1)
+
+#############
+# DEBUGGING #
+#############
+
+# Set SIGMA to small value to see how the model behaves without diffusion.
+SIGMA *= 0.01
+
+S = np.identity(2) * GAMMA
+# Z = np.array([0, 0]).reshape(-1, 1)
