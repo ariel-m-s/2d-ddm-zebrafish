@@ -28,7 +28,7 @@ from simulator import Simulator
 # The stimulus angles are in degrees, not radians.
 # The stimulus strength (coherence) ranges from 0 to 1, not 0% to 100%.
 
-STIMULUS_IDS = {
+STIMULUS_IDS_COMPLETE = {
     (-90, 1): "000",
     (90, 1): "001",
     (-135, 1): "002",
@@ -56,7 +56,7 @@ STIMULUS_IDS = {
     (None, 0): "024",
 }
 
-# STIMULUS_IDS = {
+# STIMULUS_IDS_100 = {
 #     (-90, 1): "000",
 #     (90, 1): "001",
 #     (-135, 1): "002",
@@ -67,6 +67,8 @@ STIMULUS_IDS = {
 #     (-45, 1): "007",
 #     (None, 0): "008",
 # }
+
+STIMULUS_IDS = STIMULUS_IDS_COMPLETE
 
 # Structure of STIMULUS_STRUCTURE:
 # [
