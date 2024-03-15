@@ -133,6 +133,7 @@ def _objective(params, x) -> float:
     xi = np.array([0, xi2]).reshape(-1, 1)
 
     weights = compute_weights(x, gamma, M, z, S, xi)
+    print(weights)
 
     absolute_errors = np.abs(weights - ground_truth)
     return np.max(absolute_errors)
@@ -252,8 +253,8 @@ if __name__ == "__main__":
     # that the same random samples are used for each optimization run.
     np.random.seed(0)
 
-    N_SAMPLES = int(1e5)
-    N_SUBDIVISIONS = 21
+    N_SAMPLES = int(1e4)
+    N_SUBDIVISIONS = 11
     N_PARAMS = len(search_space)
     N_COMBINATIONS = N_SUBDIVISIONS**N_PARAMS
     N_WORKERS = -1
@@ -275,11 +276,18 @@ if __name__ == "__main__":
     x_samples_cov = x_cov(sigma=constants.SIGMA, gamma=constants.GAMMA)
     x_samples = np.random.multivariate_normal(x_samples_mean, x_samples_cov, N_SAMPLES).T
 
-    # m = 1
-    # s = 1
-    # result = compute_weights(x_samples, constants.GAMMA, np.array([[m, 0], [0, m]]), np.array([[0], [0]]), np.array([[s, 0], [0, s]]), np.array([[0], [0]]).reshape(-1, 1))
-    # np.set_printoptions(precision=2, suppress=True)
-    # print(result)
+    # m = 1.100
+    # z2 = 0.150
+    # s = 0.300
+    # params = [
+    #     constants.GAMMA,
+    #     np.array([[m, 0], [0, m]]),
+    #     np.array([[0], [z2]]).reshape(-1, 1),
+    #     np.array([[s, 0], [0, s]]),
+    #     np.array([[0], [0]]).reshape(-1, 1),
+    # ]
+    # loss = objective([m, z2, s], x_samples)
+    # print(loss)
     # exit()
 
     print("\nFitting...\n")

@@ -176,9 +176,9 @@ def boutfield(x: np.array, alpha: np.array, M: np.array, z: np.array) -> np.arra
     # Determine the decision category based on the angle of the decision variable.
     decisions = decision_category__alpha(alpha, constants.PHI)
 
-    # Initialize the array for the bout field.
+    # Initialize the array for the bout field. Set the bout rate to zero by default.
     n_samples = x.shape[1]
-    field = np.empty((3, n_samples))
+    field = np.zeros((3, n_samples))
 
     # Set the bout rate based on the decision category.
     field[0, decisions == DecisionCategory.LEFT] = constants.MAX_BOUT_RATE
