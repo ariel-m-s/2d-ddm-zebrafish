@@ -36,7 +36,6 @@ simulator = Simulator()
 
 figs, axs = plt.subplots(1, 2, figsize=(12, 6))
 
-
 simulator_ax = axs[0]
 distr_ax = axs[1]
 

@@ -13,6 +13,7 @@ numpy = "^1.24.1"
 matplotlib = "^3.6.3"
 tqdm = "^4.66.1"
 scipy = "^1.11.1"
+pandas = "^2.2.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
