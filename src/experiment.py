@@ -136,7 +136,7 @@ def simulate_fish(n_trials: int, fish_num: int, random_seed: int = None):
                 duration_in_steps = int(duration_in_seconds / simulator.time_step)
 
                 # The stimulus vector (c) is None if the stimulus is off / the coherence is 0.
-                c = None
+                c = np.array([0, 0])
 
                 # If the stimulus is on and the coherence is not 0, get the stimulus vector (c).
                 if stimulus_is_on and (coherence != 0):

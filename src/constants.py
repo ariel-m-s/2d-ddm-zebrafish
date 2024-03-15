@@ -140,7 +140,7 @@ XI = np.array([XI1, XI2]).reshape(-1, 1)
 #############
 
 # Set SIGMA to small value to see how the model behaves without diffusion.
-SIGMA *= 0.01
+# SIGMA *= 0.01
 
-S = np.identity(2) * GAMMA
+# S = np.identity(2) * GAMMA
 # Z = np.array([0, 0]).reshape(-1, 1)
