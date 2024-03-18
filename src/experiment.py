@@ -117,7 +117,7 @@ def simulate_fish(n_trials: int, fish_num: int, random_seed: int = None):
     initial_orientation = np.random.uniform(-180, 180)
 
     # Simulate each trial.
-    for trial_idx in tqdm(trial_idxs, desc=""):
+    for trial_idx in tqdm(trial_idxs, desc=f"Fish/CPU {fish_num}"):
         # Randomize the order of the stimuli. This ensures that the fish is not
         # biased by the order of the stimuli.
         randomized_stimuli = np.random.permutation(list(STIMULUS_IDS.keys()))
