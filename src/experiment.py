@@ -140,7 +140,7 @@ def simulate_fish(n_trials: int, fish_num: int, random_seed: int = None):
                 # Cartesian coordinates. If the stimulus is off, the stimulus vector is [0, 0].
                 # If the stimulus is on, the stimulus vector is calculated based on the stimulus
                 # angle (theta__degrees) and coherence.
-                c = get_c(theta__degrees=theta__degrees, coherence=coherence) if stimulus_is_on else np.array([0, 0])
+                c = get_c(theta__degrees=theta__degrees, coherence=coherence) if stimulus_is_on else np.zeros(2)
 
                 # Simulate the stimulus for the duration of the stimulus.
                 for _ in range(duration_in_steps):
