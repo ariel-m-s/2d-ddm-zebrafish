@@ -135,12 +135,12 @@ def simulate_fish(n_trials: int, fish_num: int, random_seed: int = None):
                 # The duration of the stimulus is converted from seconds to steps.
                 duration_in_steps = int(duration_in_seconds / simulator.time_step)
 
-                # The stimulus vector (c) is None if the stimulus is off / the coherence is 0.
-                c = np.array([0, 0])
-
-                # If the stimulus is on and the coherence is not 0, get the stimulus vector (c).
-                if stimulus_is_on and (coherence != 0):
-                    c = get_c(theta__degrees=theta__degrees, coherence=coherence)
+                # The stimulus vector (c) is the visual stimulus that the fish perceives. The
+                # stimulus vector is a two-dimensional array that represents the stimulus in
+                # Cartesian coordinates. If the stimulus is off, the stimulus vector is [0, 0].
+                # If the stimulus is on, the stimulus vector is calculated based on the stimulus
+                # angle (theta__degrees) and coherence.
+                c = get_c(theta__degrees=theta__degrees, coherence=coherence) if stimulus_is_on else np.array([0, 0])
 
                 # Simulate the stimulus for the duration of the stimulus.
                 for _ in range(duration_in_steps):
