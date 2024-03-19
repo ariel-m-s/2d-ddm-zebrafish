@@ -10,11 +10,11 @@ SAVE_FIGS = True
 FIGS_TO_SHOW = [
     "bout-categories",
     "angle-histogram",
-    # "bahl-engert-1b",
-    # "bahl-engert-1c",
-    # "bahl-engert-1d",
-    # "bahl-engert-1e",
-    # "bahl-engert-1f",
+    "bahl-engert-1b",
+    "bahl-engert-1c",
+    "bahl-engert-1d",
+    "bahl-engert-1e",
+    "bahl-engert-1f",
 ]
 
 EXPERIMENT_IDX = 2
@@ -32,7 +32,7 @@ else:
     raise ValueError("Invalid EXPERIMENT_IDX")
 
 DIRECTORY_NAME = "../behavior/free_swimming_8fish_random_dot_kinematogram_data/org"
-# DIRECTORY_NAME = "../2d-ddm-zebrafish/simulated_data"
+DIRECTORY_NAME = "../2d-ddm-zebrafish/simulated_data"
 
 angles__trials, times__trials, angles__all, times__all = extract_bouts(DIRECTORY_NAME, EXPERIMENT_IDX)
 
@@ -53,7 +53,7 @@ STIM_POS = {
 STIM_KEYS = list(STIM_POS.keys())
 
 if "bout-categories" in FIGS_TO_SHOW:
-    fig_tcf, axes_tcf = plt.subplots(3, 2, figsize=(4, 7), sharex=True, sharey=True)
+    fig_tcf, axes_tcf = plt.subplots(3, 2, figsize=(7, 7), sharex=True, sharey=True)
 
     n_bins = 20
     domain_size = 20
@@ -194,7 +194,6 @@ if "bout-categories" in FIGS_TO_SHOW:
 
             axes_tcf[STIM_POS[stim]].set_xlabel("Time (s)")
             axes_tcf[STIM_POS[stim]].set_ylabel("Relative count of bouts")
-
 
 if "angle-histogram" in FIGS_TO_SHOW:
     fig_angle_histogram, axes = plt.subplots(3, 2, figsize=(7, 7), sharex=True, sharey=True)
@@ -355,6 +354,7 @@ if "bahl-engert-1c" in FIGS_TO_SHOW:
     for stim in STIM_KEYS:
         ax1c = axes1c[STIM_POS[stim]]
         ax1c.axvspan(STIM_START, STIM_END, color="lightgray", alpha=0.5)
+        ax1c.set_ylabel("Probability correct")
 
         start_times__this_stim = times__all[stim]
         turn_angles__this_stim = angles__all[stim]
@@ -434,12 +434,12 @@ if "bahl-engert-1d" in FIGS_TO_SHOW:
     num_bins = 3
 
     for stim in STIM_KEYS:
-
         stim_showing_duration = 3
         end_shift = 6
         stim_gap = STIM_END - STIM_START - stim_showing_duration - end_shift
 
         ax1d = axes1d[STIM_POS[stim]]
+        ax1d.set_ylabel("Probability correct")
         ax1d.axvspan(STIM_START, STIM_START + stim_showing_duration, color="lightgray", alpha=0.5)
         ax1d.axvspan(STIM_END - end_shift - (stim_gap / 7), STIM_END - end_shift, color="lightgray", alpha=0.5)
 
@@ -599,6 +599,7 @@ if "bahl-engert-1e" in FIGS_TO_SHOW:
     for stim in STIM_KEYS:
 
         ax1e = axes1e[STIM_POS[stim]]
+        ax1e.set_ylabel("Probability correct")
         ax1e.axvspan(STIM_START, STIM_START + stim_showing_duration, color="lightgray", alpha=0.5)
         ax1e.axvspan(STIM_END - end_shift - (stim_gap / 7), STIM_END - end_shift, color="lightgray", alpha=0.5)
 
@@ -738,8 +739,8 @@ if "bahl-engert-1f" in FIGS_TO_SHOW:
     fig_be_1f, axes1f = plt.subplots(3, 2, figsize=(7, 7), sharex=True, sharey=True)
 
     for stim in STIM_KEYS:
-
         ax1f = axes1f[STIM_POS[stim]]
+        ax1f.set_ylabel("Probability consecutive")
 
         start_times__this_stim = times__trials[stim]
         turn_angles__this_stim = angles__trials[stim]

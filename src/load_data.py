@@ -11,18 +11,18 @@ organized structure, so no conversion is needed.
 ########################################################################################
 
 The following functions are defined:
-- _load_trials: Load the trials from the given CSV file.
-- _get_trial_data: Get the trial data for the given trial ID.
+- load_trials: Load the trials from the given CSV file.
+- get_trial_data: Get the trial data for the given trial ID.
 - extract_bouts: Extract the bout data from the given directory to be used in the analysis.
 
 These functions are used to load and process the trial data in the analysis pipeline.
 
 Example:
     # Load the trials metadata.
-    trials = _load_trials("data/organized/trials.csv")
+    trials = load_trials("data/organized/trials.csv")
 
     # Get the trial data for the trial ID 100.
-    trial_data = _get_trial_data("data/organized", 100)
+    trial_data = get_trial_data("data/organized", 100)
 
     # OR extract the bout data from the given directory to be used in the analysis.
     angles__trials, times__trials, angles__all, times__all = extract_bouts("data/organized", 0)
@@ -49,7 +49,7 @@ from experiment import (
 #############
 
 
-def _load_trials(trials_path):
+def load_trials(trials_path):
     """
     Load the trials from the given CSV file. The CSV file contains the trial data.
 
@@ -64,7 +64,7 @@ def _load_trials(trials_path):
     return trials
 
 
-def _get_trial_data(data_path, trial_id):
+def get_trial_data(data_path, trial_id):
     """
     Get the trial data for the given trial ID. The trial data is saved in pickle format,
     and the file name is the trial ID.
@@ -100,7 +100,7 @@ def extract_bouts(directory_name: str, experiment_idx: int):
         dict: The start times for each stimulus angle and coherence level.
     """
     # Load the trials metadata.
-    trials = _load_trials(os.path.join(directory_name, "trials.csv"))
+    trials = load_trials(os.path.join(directory_name, "trials.csv"))
 
     # Initialize the data structures to store the turn angles and start times for each stimulus
     # angle and coherence.
@@ -109,7 +109,7 @@ def extract_bouts(directory_name: str, experiment_idx: int):
 
     for trial_id in tqdm(trials.index):
         # Get the trial data for the given trial ID.
-        data = _get_trial_data(data_path=directory_name, trial_id=trial_id)
+        data = get_trial_data(data_path=directory_name, trial_id=trial_id)
 
         # There are three experiments, and each experiment has a different number of coherence levels.
         # The stimulus IDs are different for each experiment, so the stimulus IDs are filtered based
