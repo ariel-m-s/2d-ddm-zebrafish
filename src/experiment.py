@@ -83,8 +83,6 @@ STIM_IDS_EXPERIMENT_2 = {
     None: "024",
 }
 
-STIMULUS_IDS = STIM_IDS_EXPERIMENT_2
-
 # Structure of STIMULUS_STRUCTURE:
 # [
 #     (stimulus_is_on, duration_in_seconds),
