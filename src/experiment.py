@@ -1,3 +1,19 @@
+"""
+This module contains the experiment parameters. The experiment parameters define the
+stimulus structure and the stimulus IDs for each experiment. The stimulus structure
+defines the timing and duration of the stimuli. The stimulus IDs define the stimulus
+IDs for each stimulus angle and coherence level.
+
+Example:
+    To access the stimulus structure for experiment 0, use `experiment.STIMULUS_STRUCTURE`.
+
+    To access the stimulus IDs for experiment 0, use `experiment.STIM_IDS_EXPERIMENT_0`.
+
+    To access the stimulus IDs for experiment 1, use `experiment.STIM_IDS_EXPERIMENT_1`.
+
+    To access the stimulus IDs for experiment 2, use `experiment.STIM_IDS_EXPERIMENT_2`.
+"""
+
 # Sturcture of STIMULUS_IDS:
 # {
 #     (theta, coherence): stimulus_id,
