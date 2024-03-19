@@ -20,7 +20,7 @@ from constants import (
     TIME_STEP,
     Z,
 )
-from simulator import Simulator
+from model import Simulator
 
 M_det = np.sqrt(M1 * M2)
 M_det_inv = 1 / M_det

@@ -38,74 +38,11 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-# Sturcture of STIMULUS_IDS:
-# {
-#     (theta, coherence): stimulus_id,
-#     ...
-# }
-
-# The stimulus angles are in degrees, not radians.
-# The stimulus strength (coherence) ranges from 0 to 1, not 0% to 100%.
-
-STIM_IDS_EXPERIMENT_0 = {
-    (90, 1): "000",
-    (-90, 1): "001",
-    (135, 1): "002",
-    (-45, 1): "003",
-    (180, 1): "004",
-    (0, 1): "005",
-    (-135, 1): "006",
-    (45, 1): "007",
-    None: "008",
-}
-
-STIM_IDS_EXPERIMENT_1 = {
-    (90, 1): "000",
-    (-90, 1): "001",
-    (135, 1): "002",
-    (-45, 1): "003",
-    (180, 1): "004",
-    (0, 1): "005",
-    (-135, 1): "006",
-    (45, 1): "007",
-    (90, 0.25): "008",
-    (-90, 0.25): "009",
-    (135, 0.25): "010",
-    (-45, 0.25): "011",
-    (180, 0.25): "012",
-    (0, 0.25): "013",
-    (-135, 0.25): "014",
-    (45, 0.25): "015",
-    None: "016",
-}
-
-STIM_IDS_EXPERIMENT_2 = {
-    (90, 1): "000",
-    (-90, 1): "001",
-    (135, 1): "002",
-    (-45, 1): "003",
-    (180, 1): "004",
-    (0, 1): "005",
-    (-135, 1): "006",
-    (45, 1): "007",
-    (90, 0.5): "008",
-    (-90, 0.5): "009",
-    (135, 0.5): "010",
-    (-45, 0.5): "011",
-    (180, 0.5): "012",
-    (0, 0.5): "013",
-    (-135, 0.5): "014",
-    (45, 0.5): "015",
-    (90, 0.25): "016",
-    (-90, 0.25): "017",
-    (135, 0.25): "018",
-    (-45, 0.25): "019",
-    (180, 0.25): "020",
-    (0, 0.25): "021",
-    (-135, 0.25): "022",
-    (45, 0.25): "023",
-    None: "024",
-}
+from experiment import (
+    STIM_IDS_EXPERIMENT_0,
+    STIM_IDS_EXPERIMENT_1,
+    STIM_IDS_EXPERIMENT_2,
+)
 
 #############
 # FUNCTIONS #
@@ -255,8 +192,6 @@ def extract_bouts(directory_name: str, experiment_idx: int):
 
     # Concatenate the turn angles and start times for each stimulus angle and coherence level into
     # a single array.
-
-    print("3")
 
     angles__all = defaultdict(dict)
     times__all = defaultdict(dict)

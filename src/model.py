@@ -7,7 +7,7 @@ accumulation process and decision-making behavior.
 import numpy as np
 
 import constants
-from decision_making import decision_category__x, get_alpha, is_subthreshold
+from decision_making import decision_category__x, is_subthreshold
 from evidence_accumulation import dx
 
 
@@ -214,11 +214,6 @@ class Simulator:
         # Reshape the stimulus vector (c) to a column vector (2x1) if it is
         # not already in that shape.
         c = c.reshape(-1, 1)
-
-        # alpha = np.rad2deg(get_alpha(self.x))
-        # theta = np.rad2deg(get_alpha(c))
-        # print(f"alpha: {alpha}")
-        # print(f"theta: {theta}")
 
         # Update the decision variable (x). The decision variable is the
         # agent's internal representation of the accumulated evidence.

@@ -10,11 +10,11 @@ SAVE_FIGS = True
 FIGS_TO_SHOW = [
     "bout-categories",
     "angle-histogram",
-    "bahl-engert-1b",
-    "bahl-engert-1c",
-    "bahl-engert-1d",
-    "bahl-engert-1e",
-    "bahl-engert-1f",
+    # "bahl-engert-1b",
+    # "bahl-engert-1c",
+    # "bahl-engert-1d",
+    # "bahl-engert-1e",
+    # "bahl-engert-1f",
 ]
 
 EXPERIMENT_IDX = 2
@@ -32,7 +32,7 @@ else:
     raise ValueError("Invalid EXPERIMENT_IDX")
 
 DIRECTORY_NAME = "../behavior/free_swimming_8fish_random_dot_kinematogram_data/org"
-# DATA_DIR = "../2d-ddm-zebrafish/simulated_data"
+# DIRECTORY_NAME = "../2d-ddm-zebrafish/simulated_data"
 
 angles__trials, times__trials, angles__all, times__all = extract_bouts(DIRECTORY_NAME, EXPERIMENT_IDX)
 
@@ -68,8 +68,6 @@ if "bout-categories" in FIGS_TO_SHOW:
     baseline = n_bouts / n_bins
 
     for stim in STIM_KEYS:
-        print(stim)
-
         axes_tcf[STIM_POS[stim]].axvspan(STIM_START, STIM_END, color="lightgray", alpha=0.5)
 
         frequency_means_left = np.zeros((N_COHERENCE_LEVELS, n_bins))
@@ -92,7 +90,7 @@ if "bout-categories" in FIGS_TO_SHOW:
 
                 turn_angles__filtered = angles__all[stim][coherence][mask]
 
-                left_mask = turn_angles__filtered < DECISION_SEPARATION
+                left_mask = turn_angles__filtered < -DECISION_SEPARATION
                 right_mask = turn_angles__filtered > DECISION_SEPARATION
                 forward_mask = (~left_mask) & (~right_mask)
 
@@ -130,8 +128,7 @@ if "bout-categories" in FIGS_TO_SHOW:
         # plot as line plot. left is blue, right is red, forward is black. Coherence translates into opacity of those colors.
 
         for (coherence_idx, coherence) in enumerate(COHERENCES):
-            print(stim)
-            opacity = coherence / 1
+            opacity = coherence
 
             axes_tcf[STIM_POS[stim]].errorbar(
                 bin_centers[1:-1],
@@ -196,10 +193,10 @@ if "bout-categories" in FIGS_TO_SHOW:
             axes_tcf[STIM_POS[stim]].set_xticklabels([0, 5, 10, 15, 20])
 
             axes_tcf[STIM_POS[stim]].set_xlabel("Time (s)")
-            axes_tcf[STIM_POS[stim]].set_ylabel("Percentage of bouts")
+            axes_tcf[STIM_POS[stim]].set_ylabel("Relative count of bouts")
 
 
-if "fig_angle_histogram" in FIGS_TO_SHOW:
+if "angle-histogram" in FIGS_TO_SHOW:
     fig_angle_histogram, axes = plt.subplots(3, 2, figsize=(7, 7), sharex=True, sharey=True)
 
     # We want to plot the histogram of turn angles for each coherence level, for each stimulus direction.
@@ -892,11 +889,19 @@ plt.show()
 # save all figures as svgs so that they can be edited later.
 
 if SAVE_FIGS:
-    fig_tcf.savefig("fig_tcf.svg", bbox_inches="tight")
-    fig_angle_histogram.savefig("fig_angle_histogram.svg", bbox_inches="tight")
-    fig_be_1b.savefig("fig_be_1b.svg", bbox_inches="tight")
-    fig_be_1c.savefig("fig_be_1c.svg", bbox_inches="tight")
-    fig_be_1c.savefig("fig_be_1c.svg", bbox_inches="tight")
-    fig_be_1d.savefig("fig_be_1d.svg", bbox_inches="tight")
-    fig_be_1e.savefig("fig_be_1e.svg", bbox_inches="tight")
-    fig_be_1f.savefig("fig_be_1f.svg", bbox_inches="tight")
+    if "bout-categories" in FIGS_TO_SHOW:
+        fig_tcf.savefig("fig_tcf.svg", bbox_inches="tight")
+    if "angle-histogram" in FIGS_TO_SHOW:
+        fig_angle_histogram.savefig("fig_angle_histogram.svg", bbox_inches="tight")
+    if "bahl-engert-1b" in FIGS_TO_SHOW:
+        fig_be_1b.savefig("fig_be_1b.svg", bbox_inches="tight")
+    if "bahl-engert-1c" in FIGS_TO_SHOW:
+        fig_be_1c.savefig("fig_be_1c.svg", bbox_inches="tight")
+    if "bahl-engert-1d" in FIGS_TO_SHOW:
+        fig_be_1c.savefig("fig_be_1c.svg", bbox_inches="tight")
+    if "bahl-engert-1e" in FIGS_TO_SHOW:
+        fig_be_1d.savefig("fig_be_1d.svg", bbox_inches="tight")
+    if "bahl-engert-1f" in FIGS_TO_SHOW:
+        fig_be_1e.savefig("fig_be_1e.svg", bbox_inches="tight")
+    if "bahl-engert-1f" in FIGS_TO_SHOW:
+        fig_be_1f.savefig("fig_be_1f.svg", bbox_inches="tight")
